@@ -27,8 +27,8 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
   const [predictions, setPredictions] = useState<AudioPrediction[]>([]);
   const [status, setStatus] = useState("");
   const maxReconnects = 3;
-  const [emotions,setEmotions] = useState(predictions.length == 0 ? [] : predictions[0].emotions);
-  // const emotions = predictions.length == 0 ? [] : predictions[0].emotions;
+  // const [emotions,setEmotions] = useState(predictions.length == 0 ? [] : predictions[0].emotions);
+  const emotions = predictions.length == 0 ? [] : predictions[0].emotions;
 
   useEffect(() => {
     mountRef.current = true;
@@ -36,7 +36,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
     setTimeout(()=>{
       // console.log("Tearing down component");
       stopEverything();
-    },5000)
+    },10000)
 
     return () => {
       // console.log("Tearing down component");
@@ -187,7 +187,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
 
   return (
     <div>
-      <div className="md:flex">
+      <div className="md:flex justify-content-center mt-5">
         {!onTimeline && <TopEmotions emotions={emotions} />}
         {onTimeline && (
           <div className="ml-10">

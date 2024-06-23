@@ -43,7 +43,7 @@ export function Login({ authenticate }: LoginProps) {
       const storedAge = localStorage.getItem('age');
       const storedProf = localStorage.getItem('profession');
       const storedGen = localStorage.getItem('gender');
-      if (storedName && storedAge) {
+      if (storedName && storedAge && storedProf && storedGen) {
         setUserData({
           name: storedName,
           age: parseInt(storedAge, 10),

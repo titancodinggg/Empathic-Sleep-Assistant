@@ -8,7 +8,7 @@ type TopEmotionsProps = {
 
 export function TopEmotions({ className, emotions, numEmotions }: TopEmotionsProps) {
   className = className || "";
-  console.log("TopEmotions--------",emotions);
+  // console.log("TopEmotions--------",emotions);
   return (
     <div className={`${className}`}>
       {emotions

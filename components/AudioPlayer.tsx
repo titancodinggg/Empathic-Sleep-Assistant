@@ -3,11 +3,15 @@ import React, { useEffect, useState } from "react";
 import { fetchAudioFile } from "../lib/tts/audioService";
 import AudioPlayer from "react-audio-player";
 
-const AudioPlayerComponent: React.FC = () => {
+type AudioProps = {
+  message: string
+};
+
+const AudioPlayerComponent = ({message}:AudioProps) => {
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    handleFetchAudio("Hello, How are you doing");
+    handleFetchAudio(message);
   }, []);
 
   const handleFetchAudio = async (audioText: String) => {
