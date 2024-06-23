@@ -1,14 +1,18 @@
 // components/AudioPlayer.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchAudioFile } from "../lib/tts/audioService";
 import AudioPlayer from "react-audio-player";
 
 const AudioPlayerComponent: React.FC = () => {
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
 
-  const handleFetchAudio = async () => {
+  useEffect(() => {
+    handleFetchAudio("Hello, How are you doing");
+  }, []);
+
+  const handleFetchAudio = async (audioText: String) => {
     try {
-      const audioBlob = await fetchAudioFile();
+      const audioBlob = await fetchAudioFile(audioText);
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudioSrc(audioUrl);
     } catch (error) {
@@ -18,8 +22,8 @@ const AudioPlayerComponent: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handleFetchAudio}>Fetch and Play Audio</button>
-      {audioSrc && <AudioPlayer src={audioSrc} controls autoPlay />}
+      {/* <button onClick={handleFetchAudio()}>Fetch and Play Audio</button> */}
+      {audioSrc && <AudioPlayer src={audioSrc} controls={false} autoPlay />}
     </div>
   );
 };
