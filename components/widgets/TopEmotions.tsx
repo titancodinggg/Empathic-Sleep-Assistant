@@ -8,7 +8,7 @@ type TopEmotionsProps = {
 
 export function TopEmotions({ className, emotions, numEmotions }: TopEmotionsProps) {
   className = className || "";
-  console.log("TopEmotions--------",emotions);
+  // console.log("TopEmotions--------",emotions);
   return (
     <div className={`${className}`}>
       {emotions
@@ -20,7 +20,7 @@ export function TopEmotions({ className, emotions, numEmotions }: TopEmotionsPro
               <span>{i + 1}</span>
             </div>
             <div className="w-48 bg-neutral-800 px-4 py-2 lowercase text-white">
-              <span>{emotion.name} Pratik</span>
+              <span>{emotion.name}</span>
             </div>
             <div className="flex w-20 justify-center rounded-r-full bg-white py-2 pr-4 pl-3 font-medium text-neutral-800">
               <span>{emotion.score.toFixed(3)}</span>
