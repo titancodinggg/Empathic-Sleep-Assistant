@@ -17,7 +17,7 @@ export default function HomePage() {
         <div className="pb-2 text-4xl font-medium text-neutral-700">
           Hume AI Sleep Assistant
         </div>
-        <div className="pt-5">How was you day today ? </div>
+        <div className="pt-5">Hey {`${localStorage.name}`}! How was you day today ? </div>
 
         {/* <div className="md:px-10 pt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
           <ModelSection name="Facial Expression" page="/face" iconClass={SmileyIcon} />

@@ -27,8 +27,8 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
   const [predictions, setPredictions] = useState<AudioPrediction[]>([]);
   const [status, setStatus] = useState("");
   const maxReconnects = 3;
-
-  const emotions = predictions.length == 0 ? [] : predictions[0].emotions;
+  const [emotions,setEmotions] = useState(predictions.length == 0 ? [] : predictions[0].emotions);
+  // const emotions = predictions.length == 0 ? [] : predictions[0].emotions;
 
   useEffect(() => {
     mountRef.current = true;
