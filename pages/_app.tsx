@@ -10,13 +10,14 @@ import { Auth } from "../components/menu/Auth";
 import Head from "next/head";
 import { Nav } from "../components/menu/Nav";
 import { Toolbar } from "../components/menu/Toolbar";
+import TextToSpeechComponent from "../components/TextToSpeechComponent";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Hume AI | Sandbox</title>
-        <meta name="title" content="Hume AI | Sandbox" />
+        <title>My APP</title>
+        <meta name="title" content="Mera wala APP" />
         <meta name="description" content="Hume Sandbox" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

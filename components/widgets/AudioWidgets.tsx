@@ -33,10 +33,14 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
   useEffect(() => {
     mountRef.current = true;
     connect();
+    setTimeout(()=>{
+      // console.log("Tearing down component");
+      stopEverything();
+    },5000)
 
     return () => {
-      console.log("Tearing down component");
-      stopEverything();
+      // console.log("Tearing down component");
+      // stopEverything();
     };
   }, []);
 
@@ -46,7 +50,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
 
     serverReadyRef.current = true;
 
-    console.log(`Connecting to websocket... (using ${socketUrl})`);
+    // console.log(`Connecting to websocket... (using ${socketUrl})`);
     setStatus(`Connecting to server...`);
     socketRef.current = new WebSocket(socketUrl);
 
@@ -74,7 +78,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
   async function socketOnMessage(event: MessageEvent) {
     setStatus("");
     const response = JSON.parse(event.data);
-    console.log("Got response", response);
+    // console.log("Got response", response);
     const newPredictions: AudioPrediction[] = response[modelName]?.predictions || [];
     const warning = response[modelName]?.warning || "";
     const error = response.error;
@@ -85,6 +89,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
       return;
     }
 
+    // console.log("newPredictions",newPredictions)
     setPredictions(newPredictions);
     if (onTimeline) {
       onTimeline(newPredictions);
@@ -109,53 +114,53 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
 
     if (mountRef.current === true) {
       setStatus("Reconnecting");
-      console.log("Component still mounted, will reconnect...");
+      // console.log("Component still mounted, will reconnect...");
       connect();
     } else {
-      console.log("Component unmounted, will not reconnect...");
+      // console.log("Component unmounted, will not reconnect...");
     }
   }
 
   async function socketOnError(event: Event) {
-    console.error("Socket failed to connect: ", event);
+    // console.error("Socket failed to connect: ", event);
     if (numReconnects.current > maxReconnects) {
       setStatus(`Failed to connect to the Hume API (${authContext.environment}).
       Please log out and verify that your API key is correct.`);
       stopEverything();
     } else {
       numReconnects.current++;
-      console.warn(`Connection attempt ${numReconnects.current}`);
+      // console.warn(`Connection attempt ${numReconnects.current}`);
     }
   }
 
   function stopEverything() {
-    console.log("Stopping everything...");
+    // console.log("Stopping everything...");
     mountRef.current = false;
     const socket = socketRef.current;
     if (socket) {
-      console.log("Closing socket");
+      // console.log("Closing socket");
       socket.close();
       socketRef.current = null;
     } else {
-      console.warn("Could not close socket, not initialized yet");
+      // console.warn("Could not close socket, not initialized yet");
     }
     const recorder = recorderRef.current;
     if (recorder) {
-      console.log("Stopping recorder");
+      // console.log("Stopping recorder");
       recorder.stopRecording();
       recorderRef.current = null;
     } else {
-      console.warn("Could not stop recorder, not initialized yet");
+      // console.warn("Could not stop recorder, not initialized yet");
     }
   }
 
   async function sendRequest() {
-    console.log(`Will send ${audioBufferRef.current.length} recorded blobs to server`);
+    // console.log(`Will send ${audioBufferRef.current.length} recorded blobs to server`);
 
     const socket = socketRef.current;
 
     if (!socket) {
-      console.log("No socket on state");
+      // console.log("No socket on state");
       return;
     }
 
@@ -175,7 +180,7 @@ export function AudioWidgets({ modelName, recordingLengthMs, streamWindowLengthM
 
       socket.send(response);
     } else {
-      console.log("Socket not open");
+      // console.log("Socket not open");
       socket.close();
     }
   }
